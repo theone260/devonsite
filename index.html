@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 22nd Birthday Devon Anh Rose</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #333;
+        }
+        
+        .book-container {
+            perspective: 1500px;
+            width: 90vw;
+            max-width: 1000px;
+            height: 70vh;
+            max-height: 700px;
+            position: relative;
+        }
+        
+        .book {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .page {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f3 100%);
+            border: 3px solid #00A86B;
+            border-radius: 0 15px 15px 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 168, 107, 0.3);
+            overflow: hidden;
+            right: 0;
+        }
+        
+        .page:nth-child(1) {
+            z-index: 4;
+        }
+        
+        .page:nth-child(2) {
+            z-index: 3;
+        }
+        
+        .page:nth-child(3) {
+            z-index: 2;
+        }
+        
+        .page:nth-child(4) {
+            z-index: 1;
+        }
+        
+        .page-content {
+            padding: 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%2300A86B" opacity="0.1"/></svg>');
+            pointer-events: none;
+        }
+        
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #00A86B;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 168, 107, 0.3);
+            line-height: 1.2;
+        }
+        
+        .cover-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: #2d5a4a;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+        
+        .cover-ornament {
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FFD700, transparent);
+            margin: 20px 0;
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            height: 70%;
+        }
+        
+        .photo-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .message-text {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            line-height: 1.8;
+            color: #2d5a4a;
+            text-align: left;
+            max-width: 100%;
+        }
+        
+        .message-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: #00A86B;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, #00A86B, #2d5a4a);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 168, 107, 0.4);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 168, 107, 0.6);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00A86B;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .flipped {
+            transform: rotateY(-180deg);
+        }
+        
+        .heart-decoration {
+            color: #FFD700;
+            font-size: 24px;
+            margin: 15px 0;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            color: rgba(0, 168, 107, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .single-photo {
+            width: 100%;
+            max-width: 300px;
+            height: 60%;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .book-container {
+                width: 95vw;
+                height: 80vh;
+            }
+            
+            .page-content {
+                padding: 20px;
+            }
+            
+            .photo-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .message-text {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element" style="top: 10%; left: 10%; font-size: 30px;">💚</div>
+        <div class="floating-element" style="top: 20%; right: 15%; font-size: 25px; animation-delay: -2s;">✨</div>
+        <div class="floating-element" style="bottom: 30%; left: 20%; font-size: 35px; animation-delay: -4s;">🌟</div>
+        <div class="floating-element" style="top: 60%; right: 10%; font-size: 28px; animation-delay: -1s;">💎</div>
+    </div>
+
+    <div class="book-container">
+        <div class="book" id="book">
+            <!-- Page 1 - Cover -->
+            <div class="page" id="page1">
+                <div class="page-content">
+                    <div class="cover-title">Happy 22nd Birthday</div>
+                    <div class="cover-ornament"></div>
+                    <div class="cover-subtitle">Devon Anh Rose</div>
+                    <div class="heart-decoration">💚</div>
+                    <div style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #2d5a4a; font-style: italic;">
+                        "To my heart"
+                    </div>
+                </div>
+                <div class="page-number">1</div>
+            </div>
+
+            <!-- Page 2 - Photos -->
+            <div class="page" id="page2">
+                <div class="page-content">
+                    <div class="message-title">Beautiful Moments</div>
+                    <div class="photo-grid">
+    <div class="photo-item">
+        <img src="photos/1.PNG" alt="Devon Photo 1">
+    </div>
+    <div class="photo-item">
+        <img src="photos/2.PNG" alt="Devon Photo 2">
+    </div>
+    <div class="photo-item">
+        <img src="photos/3.PNG" alt="Devon Photo 3">
+    </div>
+    <div class="photo-item">
+        <img src="photos/4.PNG" alt="Devon Photo 4">
+    </div>
+</div>
+                </div>
+                <div class="page-number">2</div>
+            </div>
+
+            <!-- Page 3 - Message Part 1 -->
+            <div class="page" id="page3">
+                <div class="page-content">
+                    <div class="message-title">From My Heart</div>
+                    <div class="message-text">
+                        Ever since I first laid eyes on you, I immediately imagined us having a future together. From your love of God, to the way you love me and those around you, I'm glad we chose each other.
+                        <br><br>
+                        As you step into my realm of being old, I pray God grants you more wisdom, knowledge and understanding of who He is. I pray God prunes you to be that Proverbs 31 woman and overall a disciple of our Lord Jesus.
+                    </div>
+                    <div class="heart-decoration">💚</div>
+                </div>
+                <div class="page-number">3</div>
+            </div>
+
+            <!-- Page 4 - Message Part 2 -->
+            <div class="page" id="page4">
+                <div class="page-content">
+                    <div class="message-title">Our Future Together</div>
+                    <div class="message-text">
+                        I look forward to the days where our meeting times go from a day's journey to us rolling over on a bed. Our prayers going from the internet to us holding hands.
+                        <br><br>
+                        I can go on and on about how you're funny, insanely smart, talented, and just a do-it-all woman. You're an all-in-one package.
+                        <br><br>
+                        <strong style="color: #00A86B; font-size: 1.2em;">Here's to 22, Fish! 🐠💚</strong>
+                    </div>
+                </div>
+                <div class="page-number">4</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 4;
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                const currentPageElement = document.getElementById(`page${currentPage}`);
+                currentPageElement.classList.add('flipped');
+                currentPage++;
+                updateNavigation();
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                const previousPageElement = document.getElementById(`page${currentPage}`);
+                previousPageElement.classList.remove('flipped');
+                updateNavigation();
+            }
+        }
+
+        // Initialize navigation
+        updateNavigation();
+
+        // Auto-advance to show the book opening effect
+        setTimeout(() => {
+            if (currentPage === 1) {
+                nextPage();
+            }
+        }, 2000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextPage();
+            } else if (e.key === 'ArrowLeft') {
+                previousPage();
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let endX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            startX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next page
+                    nextPage();
+                } else {
+                    // Swipe right - previous page
+                    previousPage();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
